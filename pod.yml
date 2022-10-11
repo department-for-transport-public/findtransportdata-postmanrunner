@@ -1,0 +1,10 @@
+kind: Pod
+metadata:
+  name: postman_runner
+spec:
+  containers:
+  - name: postman_runner
+    image: postman/newman
+    command: ["run"]
+    args: ["https://blue-water-795524.postman.co/workspace/FTD-shared-workspace~b062ab86-1f1c-494c-8570-210ced2e48f9/collection/21262774-54836e42-0b72-4a72-b57e-f81250608f45?action=share&creator=21262774"]
+  restartPolicy: Never
