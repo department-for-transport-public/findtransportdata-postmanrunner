@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: postman-runner
+  namespace: dft-nap-dev
+spec:
+  containers:
+  - name: postman-runner
+    image: europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/postmanrunner
+    command: ["newman"]
+    args: ["run","https://www.getpostman.com/collections/9e38ea5fae83c9d3b603","-e","/srv/env.json","--insecure"]
+  restartPolicy: Never
+  

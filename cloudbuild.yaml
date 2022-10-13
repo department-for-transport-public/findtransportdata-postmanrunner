@@ -1,0 +1,45 @@
+steps:
+
+- name: 'gcr.io/cloud-builders/git'
+  id: Write environment config
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    sed "s/BASE_URL_VALUE/${BASE_URL}/g" docker/env.json
+    sed "s/API_KEY_VALUE/${API_KEY}/g" docker/env.json
+    sed "s/CLIENT_ID_VALUE/${CLIENT_ID}/g" docker/env.json
+    sed "s/CLIENT_SECRET_VALUE/${CLIENT_SECRET}/g" docker/env.json
+    sed "s/CALLBACK_URL_VALUE/${CALLBACK_URL}/g" docker/env.json
+    sed "s/ID_TOKEN_VALUE/${ID_TOKEN}/g" docker/env.json
+
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Build
+  args:
+  - 'build'
+  - '--build-arg'
+  - 'version=$SHORT_SHA'
+  - '-t'
+  - 'europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/postmanrunner:$SHORT_SHA'
+  - '.'
+  - '-f'
+  - docker/Dockerfile
+  timeout: 660s
+
+- name: 'gcr.io/cloud-builders/docker'
+  id: Push
+  args:
+  - 'push'
+  - 'europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/postmanrunner:$SHORT_SHA'
+
+- name: "gcr.io/cloud-builders/gke-deploy"
+  args:
+  - run
+  - --filename=manifests/
+  - --location=europe-west1
+  - --namespace=${_NAMESPACE}
+  - --cluster=${PROJECT_ID}-cluster
+  timeout: 600s
+substitutions:
+  _NAMESPACE: dft-nap-dev
