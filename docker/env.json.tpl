@@ -28,7 +28,7 @@
 		},
 		{
 			"key": "AUTH_CALLBACK_URL",
-			"value": "CALLBACK_URL_VALUE",
+			"value": "https://CALLBACK_URL_VALUE",
 			"type": "default",
 			"enabled": true
 		},
