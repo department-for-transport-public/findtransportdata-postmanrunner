@@ -6,12 +6,12 @@ steps:
   args:
   - '-c'
   - |
-    sed -i "s/API_KEY_VALUE/${_API_KEY}/g" docker/env.json
+    sed -i "s^API_KEY_VALUE^${_API_KEY}^g" docker/env.json
     sed -i "s^BASE_URL_VALUE^${_BASE_URL}^g" docker/env.json
-    sed -i "s/CLIENT_ID_VALUE/${_CLIENT_ID}/g" docker/env.json
-    sed -i "s/CLIENT_SECRET_VALUE/${_CLIENT_SECRET}/g" docker/env.json
+    sed -i "s^CLIENT_ID_VALUE^${_CLIENT_ID}^g" docker/env.json
+    sed -i "s^CLIENT_SECRET_VALUE^${_CLIENT_SECRET}^g" docker/env.json
     sed -i "s^CALLBACK_URL_VALUE^${_CALLBACK_URL}^g" docker/env.json
-    sed -i "s/ID_TOKEN_VALUE/${_ID_TOKEN}/g" docker/env.json
+    sed -i "s^ID_TOKEN_VALUE^${_ID_TOKEN}^g" docker/env.json
 
 
 - name: 'gcr.io/cloud-builders/docker'
