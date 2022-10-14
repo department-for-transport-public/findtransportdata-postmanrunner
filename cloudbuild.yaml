@@ -6,12 +6,12 @@ steps:
   args:
   - '-c'
   - |
-    sed "s/BASE_URL_VALUE/${BASE_URL}/g" docker/env.json
-    sed "s/API_KEY_VALUE/${API_KEY}/g" docker/env.json
-    sed "s/CLIENT_ID_VALUE/${CLIENT_ID}/g" docker/env.json
-    sed "s/CLIENT_SECRET_VALUE/${CLIENT_SECRET}/g" docker/env.json
-    sed "s/CALLBACK_URL_VALUE/${CALLBACK_URL}/g" docker/env.json
-    sed "s/ID_TOKEN_VALUE/${ID_TOKEN}/g" docker/env.json
+    sed "s/BASE_URL_VALUE/${_BASE_URL}/g" docker/env.json
+    sed "s/API_KEY_VALUE/${_API_KEY}/g" docker/env.json
+    sed "s/CLIENT_ID_VALUE/${_CLIENT_ID}/g" docker/env.json
+    sed "s/CLIENT_SECRET_VALUE/${_CLIENT_SECRET}/g" docker/env.json
+    sed "s/CALLBACK_URL_VALUE/${_CALLBACK_URL}/g" docker/env.json
+    sed "s/ID_TOKEN_VALUE/${_ID_TOKEN}/g" docker/env.json
 
 
 - name: 'gcr.io/cloud-builders/docker'
@@ -33,13 +33,3 @@ steps:
   - 'push'
   - 'europe-docker.pkg.dev/dft-rsss-findtransptdata-dev/dft-nap/postmanrunner:$SHORT_SHA'
 
-- name: "gcr.io/cloud-builders/gke-deploy"
-  args:
-  - run
-  - --filename=manifests/
-  - --location=europe-west1
-  - --namespace=${_NAMESPACE}
-  - --cluster=${PROJECT_ID}-cluster
-  timeout: 600s
-substitutions:
-  _NAMESPACE: dft-nap-dev
