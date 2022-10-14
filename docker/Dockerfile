@@ -1,3 +1,3 @@
 FROM postman/newman
 
-COPY env.json /srv/env.json
+COPY docker/env.json /srv/env.json
