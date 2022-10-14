@@ -8,5 +8,3 @@ steps:
   - --namespace=${_NAMESPACE}
   - --cluster=${PROJECT_ID}-cluster
   timeout: 600s
-substitutions:
-  _NAMESPACE: dft-nap-dev
