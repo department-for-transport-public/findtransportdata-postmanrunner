@@ -1,3 +1,3 @@
 FROM postman/newman
 
-COPY dev-env.json /srv/env.json
+COPY env.json /srv/env.json
