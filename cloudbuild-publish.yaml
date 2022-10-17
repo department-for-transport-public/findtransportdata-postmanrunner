@@ -1,5 +1,13 @@
 steps:
 
+- name: 'gcr.io/cloud-builders/git'
+  id: Write Datafix branch
+  entrypoint: 'bash'
+  args:
+  - '-c'
+  - |
+    sed -i "s^BRANCH_NAME^${$BRANCH}^g" manifests/pod.yaml
+
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
   - run
