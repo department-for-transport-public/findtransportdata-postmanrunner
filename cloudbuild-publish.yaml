@@ -6,7 +6,7 @@ steps:
   args:
   - '-c'
   - |
-    sed -i "s/BRANCH_NAME/${$_HEAD_BRANCH@L}/g" manifests/pod.yaml
+    sed -i "s/BRANCH_NAME/${_HEAD_BRANCH@L}/g" manifests/pod.yaml
 
 - name: "gcr.io/cloud-builders/gke-deploy"
   args:
@@ -16,3 +16,4 @@ steps:
   - --namespace=${_NAMESPACE}
   - --cluster=${PROJECT_ID}-cluster
   timeout: 600s
+  
